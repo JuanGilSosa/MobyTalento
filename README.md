@@ -8,10 +8,10 @@ _Acá se destacaran las practicas del roadmap enviado por <b>Talento MOBYDIGITAL
 * ✅Git
 * ❌Java 1.8 - Ejercitar HackerRank
 * ✅Programación funcional - Streams
-* ✅Algoritmos y estructuras de datos
+* ❌Algoritmos y estructuras de datos
 * ❌JUnit 5 - Mockito
 * ❌Optionals
 * ❌Spring Boot: Arquitectura de microservicios
 * ❌Spring: MVC - Data (JPA) - AOP
 * ✅Maven
-* ✅Patrones de Diseño
+* ❌Patrones de Diseño
