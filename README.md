@@ -10,7 +10,7 @@ _Acá se destacaran las practicas del roadmap enviado por <b>Talento MOBYDIGITAL
 * ✅Programación funcional - Streams
 * ❌Algoritmos y estructuras de datos
 * ❌JUnit 5 - Mockito
-* ❌Optionals
+* ✅Optionals
 * ❌Spring Boot: Arquitectura de microservicios
 * ❌Spring: MVC - Data (JPA) - AOP
 * ✅Maven
