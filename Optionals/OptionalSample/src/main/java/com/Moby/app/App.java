@@ -3,9 +3,15 @@ package com.Moby.app;
 import static java.lang.System.out;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+
 import com.Moby.app.Model.*;
 import java.util.Optional;
+import java.util.function.ToIntFunction;
+import java.util.stream.Collectors;
 
 
 public class App {
@@ -55,5 +61,43 @@ public class App {
         name.ifPresent(g -> person.setName(g));
 
         out.println(person.getName());
+        
+        out.println("====================================================================");
+
+        // Muestra el maximo del arreglo, y muestra cuantas veces se repite 
+        ArrayList<Integer> numbers = new ArrayList<>(Arrays.asList(3,2,1,3));
+        Integer max = numbers.stream()
+            .mapToInt(Integer::intValue)
+            .max()
+            .getAsInt();
+
+        Long l = numbers.stream()
+            .mapToInt(Integer::intValue)
+            .filter(n -> max.equals(n))
+            .count();
+        
+        out.println(l);
+        
+
+        List<Integer> grades = numbers.stream()
+            .filter(n -> n>40)
+            .collect(Collectors.toList())
+            .parallelStream()
+            .map( p -> {
+                    String aux = p.toString();
+                    char secondNumber = aux.charAt(1);
+                    Integer a = Integer.valueOf(Character.toString(a));
+                    int diff = 0;
+                    if(a < 5 ){
+                        diff = 5 - a;
+                    }else if(a > 5){
+                        diff = 10 - a;
+                    }
+                    if(diff < 3){
+                        return p;
+                    }
+                    
+                })
+            .collect(Collectors.toList());   
     }
 }
