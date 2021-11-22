@@ -1,4 +1,6 @@
 *.class
 Acceso INFORMACION.txt
 */target/
-*/.idea/
+# Proyecto IoC Spring
+/Spring/IoC/Sample/.idea
+**/*.iml
