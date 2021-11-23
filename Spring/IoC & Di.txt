@@ -1,0 +1,7 @@
+Inversion de Contorl:
+	principio donde hay un objeto u programa, y se le otorga el control, especificando en este caso, un framework u objetos del sistema.
+
+
+
+
+Inyeccion de dependencia: la inyeccion de dependencia es una forma de lograr la inversion de control. Es una tecnica donde a un objeto lo proveen las dependencias que necesita 
