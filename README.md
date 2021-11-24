@@ -3,7 +3,7 @@ _Acá se destacaran las practicas del roadmap enviado por <b>Talento MOBYDIGITAL
 
 [ ] Se veran especificados de la siguiente manera todos los items <br>
  
-<b>✅FINALIZADO ❌SIN HACER 🔎RESOLVIENDO </b> 
+<b>✅FINALIZADO ❌SIN HACER 🧐RESOLVIENDO </b> 
 ## Lista 🚀 
 * ✅Git
 * ❌Java 1.8 - Ejercitar HackerRank
@@ -12,6 +12,6 @@ _Acá se destacaran las practicas del roadmap enviado por <b>Talento MOBYDIGITAL
 * ❌JUnit 5 - Mockito
 * ✅Optionals
 * ❌Spring Boot: Arquitectura de microservicios
-* 🔎Spring: MVC - Data (JPA) - AOP
+* 🧐Spring: MVC - Data (JPA) - AOP
 * ✅Maven
 * ❌Patrones de Diseño
