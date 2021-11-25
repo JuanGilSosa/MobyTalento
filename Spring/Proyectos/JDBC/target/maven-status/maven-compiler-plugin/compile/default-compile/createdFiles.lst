@@ -1,0 +1,7 @@
+com\Moby\app\App.class
+com\Moby\app\Fabricante.class
+com\Moby\app\FabricanteImp.class
+com\Moby\app\ProductoImp.class
+com\Moby\app\ProductoService.class
+com\Moby\app\FabricanteService.class
+com\Moby\app\Producto.class
