@@ -1,7 +1,7 @@
 package com.Moby.app.DAO;
 
-import com.Moby.app.DAO.Service.Imp.ClienteImpMySql;
-import com.Moby.app.Model.Cliente;
+import com.Moby.app.DAO.Service.Imp.ClientImpMySql;
+import com.Moby.app.Model.Client;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,16 +9,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ClienteFactory {
+public class ClientFactory {
     @Autowired
-    ClienteImpMySql clienteDAO;
+    ClientImpMySql clienteDAO;
 
     /*
     public void setClienteDAO(ClienteMySqlDAO clienteDAO){
         this.clienteDAO = clienteDAO;
     }
     */
-    public int Insert(Cliente c){
+    public int Insert(Client c){
         return this.clienteDAO.Insert(c);
     }
 
@@ -26,15 +26,15 @@ public class ClienteFactory {
         return this.clienteDAO.Delete(id);
     }
 
-    public boolean Modify(Cliente c){
+    public boolean Modify(Client c){
         return this.clienteDAO.Modify(c);
     }
     
-    public Cliente Consult(int id){
+    public Client Consult(int id){
         return this.clienteDAO.Consult(id);
     }
     
-    public List<Cliente> GetAll(){
+    public List<Client> GetAll(){
         return this.clienteDAO.GetAll();
     }
 }

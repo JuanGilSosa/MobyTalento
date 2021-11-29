@@ -1,6 +1,6 @@
 package com.Moby.app.Model;
 
-public class Cliente {
+public class Client {
 
     private Integer id;    
     private String nombre;

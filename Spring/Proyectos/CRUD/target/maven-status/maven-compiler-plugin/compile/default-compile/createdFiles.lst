@@ -3,10 +3,10 @@ com\Moby\app\Views\MainFrame$1.class
 com\Moby\app\Controller\ContextProvider.class
 com\Moby\app\Views\MainFrame.class
 com\Moby\app\Views\MainFrame$2.class
-com\Moby\app\Model\Cliente.class
-com\Moby\app\DAO\Service\Imp\ClienteImpMySql.class
-com\Moby\app\DAO\Service\ClienteService.class
 com\Moby\app\Views\MainFrame$5.class
-com\Moby\app\DAO\ClienteFactory.class
+com\Moby\app\DAO\Service\ClientService.class
+com\Moby\app\Model\Client.class
+com\Moby\app\DAO\ClientFactory.class
 com\Moby\app\Views\MainFrame$4.class
 com\Moby\app\Views\MainFrame$3.class
+com\Moby\app\DAO\Service\Imp\ClientImpMySql.class

@@ -4,8 +4,8 @@ import org.springframework.stereotype.Service;
 import javax.swing.table.DefaultTableModel;
 
 import com.Moby.app.Controller.ContextProvider;
-import com.Moby.app.DAO.ClienteFactory;
-import com.Moby.app.Model.Cliente;
+import com.Moby.app.DAO.ClientFactory;
+import com.Moby.app.Model.Client;
 
 @Service() //mainFrame
 public class MainFrame extends javax.swing.JFrame {
@@ -17,9 +17,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void initDataJTable(){
         try{
-            ClienteFactory clnFactory = (ClienteFactory)ContextProvider.GetBean("clienteFactory");
-            java.util.List<com.Moby.app.Model.Cliente> list = clnFactory.GetAll();
-            list.forEach(System.out::println);
+            ClientFactory clnFactory = (ClientFactory)ContextProvider.GetBean("clientFactory");
+            java.util.List<com.Moby.app.Model.Client> list = clnFactory.GetAll();
             list.forEach(
                 c -> this.model.addRow(
                     new Object[]{
@@ -206,14 +205,19 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>                        
-
-
+    
+    /**
+     * <p> <b> Descripcion : </b> Una vez que obtiene el factory, se encarga de agregar 
+     * al cliente. Procediendo a obtener el ID para ser agregado, con junto al nombre,
+     * a la tabla 
+     * @param evt 
+    */
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {                                           
         if(!this.jTextFieldName.getText().isEmpty()){
             try{
-                ClienteFactory clnFactory = (ClienteFactory)ContextProvider.GetBean("clienteFactory");
+                ClientFactory clnFactory = (ClientFactory)ContextProvider.GetBean("clientFactory");
                 
-                Cliente cliente = new Cliente();
+                Client cliente = new Client();
                 cliente.setNombre(this.jTextFieldName.getText());
                 
                 int LAST_ID = clnFactory.Insert(cliente);
@@ -229,37 +233,68 @@ public class MainFrame extends javax.swing.JFrame {
             jTextFieldName.setText("");
         }
     }                                          
-
+    /**
+     * <p> <b> Descripcion : </b> Una vez que obtiene el factory, se encarga de modificar 
+     * al cliente si hay modificaciones en su nombre.
+     * Luego de eso, obtiene la row para hacer el cambio en la jTable que tiene los registros
+     * Especifico que es 1 en setValueAt(c.getNombre(), row, 1);
+     *                                                       ^<-Indicando que es la col{nombre}
+     * @param evt 
+    */
     private void jButtonUpdActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        if(!temp.isEmpty()){
+            if(!jTextFieldMname.getText().equals(temp)){
+                ClientFactory clnFactory = (ClientFactory)ContextProvider.GetBean("clientFactory");
+                
+                Client c = new Client();
+                c.setNombre(jTextFieldMname.getText());
+                c.setId(Integer.valueOf(jTextFieldMid.getText()));
+                clnFactory.Modify(c);
+                
+                int row = jTable1.getSelectedRow();
+                model.setValueAt(c.getNombre(), row, 1); 
+            }
+        }
     }                                        
 
     private void jButtonDelActionPerformed(java.awt.event.ActionEvent evt) {                                         
         if(!jTextFieldMid.getText().isEmpty()){
             int row = jTable1.getSelectedRow();
 
-            ClienteFactory clnFactory = (ClienteFactory)ContextProvider.GetBean("clienteFactory");
+            ClientFactory clnFactory = (ClientFactory)ContextProvider.GetBean("clientFactory");
             clnFactory.Delete( Integer.valueOf(jTextFieldMid.getText()) );
             
             jTextFieldMid.setText("");
             jTextFieldMname.setText("");
-            
+            temp = "";
+
             model.removeRow(row);   
         }
     }                                        
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {                                              
         if(!jTextFieldSearch.getText().isEmpty()){
-            int id = -1;
-            int row = jTable1.getSelectedRow();
-            if(row != -1){
-                id = Integer.parseInt(jTable1.getValueAt(row, 0).toString());     
+            String idTextField = jTextFieldSearch.getText();
+            ClientFactory clnFactory = (ClientFactory)ContextProvider.GetBean("clientFactory");
+            Client cliente = clnFactory.Consult(Integer.parseInt(idTextField));
+            
+            boolean flag = false;
+            if(cliente != null){
+                /*
+                    Cumplo con esta regla, de resaltar la posicion de donde
+                    esta mi cliente en la tabla para por si quiere ser 
+                    eliminado, se pueda eliminar sobre la tabla o si es
+                    modificado, se modifique los valores sobre la misma.
+                */
+                for(int row = 0; row<jTable1.getRowCount() && (!flag) ;row++){
+                    if(jTable1.getValueAt(row, 0).toString().equals(String.valueOf(cliente.getId()))){
+                        jTable1.getSelectionModel().setSelectionInterval(row, row);
+                        jTextFieldMid.setText( String.valueOf( jTable1.getValueAt(row, 0) ) );
+                        jTextFieldMname.setText( String.valueOf( jTable1.getValueAt(row, 1) ) );
+                        flag = true;
+                    }
+                }
             }
-            ClienteFactory clnFactory = (ClienteFactory)ContextProvider.GetBean("clienteFactory");
-            Cliente cliente = clnFactory.Consult(id);
-
-            this.jTextFieldMid.setText(String.valueOf(cliente.getId()));
-            this.jTextFieldMname.setText(cliente.getNombre());
         }
     }
 
@@ -268,7 +303,8 @@ public class MainFrame extends javax.swing.JFrame {
             int row = jTable1.getSelectedRow();
             if(row != -1){
                 this.jTextFieldMid.setText(String.valueOf(jTable1.getValueAt(row, 0)) );
-                this.jTextFieldMname.setText(String.valueOf(jTable1.getValueAt(row, 1)) );                
+                this.jTextFieldMname.setText(String.valueOf(jTable1.getValueAt(row, 1)) );     
+                this.temp = this.jTextFieldMname.getText();           
             }
         }
     }
@@ -292,4 +328,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldMname;
     // End of variables declaration                   
     private DefaultTableModel model;
+    //Definida para mantener nuestro nombre del cliente en caso de ser modificada
+    private String temp; 
 }

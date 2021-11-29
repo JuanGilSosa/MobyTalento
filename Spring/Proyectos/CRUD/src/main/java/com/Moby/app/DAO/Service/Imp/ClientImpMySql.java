@@ -3,8 +3,8 @@ package com.Moby.app.DAO.Service.Imp;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.Moby.app.DAO.Service.ClienteService;
-import com.Moby.app.Model.Cliente;
+import com.Moby.app.DAO.Service.ClientService;
+import com.Moby.app.Model.Client;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,9 @@ import java.sql.Statement;
 import javax.sql.DataSource;
 
 @Service
-public class ClienteImpMySql implements ClienteService{
+public class ClientImpMySql implements ClientService{
     @Autowired
     DataSource datasource;
-    /*
-    public void setDatasource(DataSource datasource) {
-        this.datasource = datasource;
-    }
-    */
 
     /**
      * <p> <b> Descripcion: </b> Luego de comenzar la conexión se usa un 
@@ -39,7 +34,7 @@ public class ClienteImpMySql implements ClienteService{
      * @return int id del usuario insertado
      */
     @Override
-    public int Insert(Cliente c) {
+    public int Insert(Client c) {
         try{
             int id = -1;
             String sql = "INSERT INTO cliente(nombre) VALUES (?)";
@@ -77,30 +72,43 @@ public class ClienteImpMySql implements ClienteService{
     }
 
     @Override
-    public boolean Modify(Cliente c) {
+    public boolean Modify(Client c) {
+        try{
+            String sql = "UPDATE cliente SET nombre = ? WHERE id = ?";
+            Connection conn = datasource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, c.getNombre());
+            ps.setString(2, String.valueOf(c.getId()));
+            ps.execute();
+            conn.close();
+            return true;
+        }catch(SQLException e){
+            System.out.println("Error al Modificar = "+e.getMessage());
+        }
         return false;
     }
 
     @Override
-    public Cliente Consult(int id) {
+    public Client Consult(int id) {
         try{
             String sql = "SELECT * FROM cliente WHERE id = "+id;
             Connection conn = datasource.getConnection();
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            Cliente aux = new Cliente();
+            Client aux = new Client();
             while(rs.next()){
                 aux.setId(Integer.parseInt(rs.getObject("id").toString()) );
                 aux.setNombre(rs.getObject("nombre").toString());
             }
+            conn.close();
             return aux;
         }catch(SQLException ignore){ System.out.println("Error al Consultar por ID"); }
-        return new Cliente();
+        return new Client();
     }
 
     @Override
-    public List<Cliente> GetAll() {
-        List<Cliente> list = new ArrayList<>();
+    public List<Client> GetAll() {
+        List<Client> list = new ArrayList<>();
         try{
             String sql = "SELECT * FROM cliente";
             Connection conn = datasource.getConnection();
@@ -108,11 +116,12 @@ public class ClienteImpMySql implements ClienteService{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                Cliente aux = new Cliente();
+                Client aux = new Client();
                 aux.setId(Integer.parseInt(rs.getObject("id").toString()) );
                 aux.setNombre(rs.getObject("nombre").toString());
                 list.add(aux);
             }
+            conn.close();
         }catch(SQLException e){ System.out.println("Error al Consultar Todos msg = "+e.getMessage()); }
         return list;
     }
