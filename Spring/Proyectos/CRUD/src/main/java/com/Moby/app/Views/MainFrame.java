@@ -7,7 +7,7 @@ import com.Moby.app.Controller.ContextProvider;
 import com.Moby.app.DAO.ClientFactory;
 import com.Moby.app.Model.Client;
 
-@Service() //mainFrame
+@Service()
 public class MainFrame extends javax.swing.JFrame {
 
     public MainFrame() {
@@ -23,7 +23,7 @@ public class MainFrame extends javax.swing.JFrame {
                 c -> this.model.addRow(
                     new Object[]{
                         c.getId(), 
-                        c.getNombre()
+                        c.getName()
                     }
                 )
             );
@@ -217,15 +217,15 @@ public class MainFrame extends javax.swing.JFrame {
             try{
                 ClientFactory clnFactory = (ClientFactory)ContextProvider.GetBean("clientFactory");
                 
-                Client cliente = new Client();
-                cliente.setNombre(this.jTextFieldName.getText());
+                Client client = new Client();
+                client.setName(this.jTextFieldName.getText());
                 
-                int LAST_ID = clnFactory.Insert(cliente);
+                int LAST_ID = clnFactory.Insert(client);
                 if(LAST_ID != -1){
                     this.model.addRow(
                         new Object[]{
                             LAST_ID,
-                            cliente.getNombre()
+                            client.getName()
                         }
                     );
                 }
@@ -247,12 +247,12 @@ public class MainFrame extends javax.swing.JFrame {
                 ClientFactory clnFactory = (ClientFactory)ContextProvider.GetBean("clientFactory");
                 
                 Client c = new Client();
-                c.setNombre(jTextFieldMname.getText());
+                c.setName(jTextFieldMname.getText());
                 c.setId(Integer.valueOf(jTextFieldMid.getText()));
                 clnFactory.Modify(c);
                 
                 int row = jTable1.getSelectedRow();
-                model.setValueAt(c.getNombre(), row, 1); 
+                model.setValueAt(c.getName(), row, 1); 
             }
         }
     }                                        
@@ -276,10 +276,10 @@ public class MainFrame extends javax.swing.JFrame {
         if(!jTextFieldSearch.getText().isEmpty()){
             String idTextField = jTextFieldSearch.getText();
             ClientFactory clnFactory = (ClientFactory)ContextProvider.GetBean("clientFactory");
-            Client cliente = clnFactory.Consult(Integer.parseInt(idTextField));
+            Client client = clnFactory.Consult(Integer.parseInt(idTextField));
             
             boolean flag = false;
-            if(cliente != null){
+            if(client != null){
                 /*
                     Cumplo con esta regla, de resaltar la posicion de donde
                     esta mi cliente en la tabla para por si quiere ser 
@@ -287,7 +287,7 @@ public class MainFrame extends javax.swing.JFrame {
                     modificado, se modifique los valores sobre la misma.
                 */
                 for(int row = 0; row<jTable1.getRowCount() && (!flag) ;row++){
-                    if(jTable1.getValueAt(row, 0).toString().equals(String.valueOf(cliente.getId()))){
+                    if(jTable1.getValueAt(row, 0).toString().equals(String.valueOf(client.getId()))){
                         jTable1.getSelectionModel().setSelectionInterval(row, row);
                         jTextFieldMid.setText( String.valueOf( jTable1.getValueAt(row, 0) ) );
                         jTextFieldMname.setText( String.valueOf( jTable1.getValueAt(row, 1) ) );

@@ -41,7 +41,7 @@ public class ClientImpMySql implements ClientService{
             
             Connection conn = datasource.getConnection();
             PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            st.setString(1,c.getNombre());
+            st.setString(1,c.getName());
             st.execute();
 
             ResultSet rs = st.getGeneratedKeys();
@@ -77,7 +77,7 @@ public class ClientImpMySql implements ClientService{
             String sql = "UPDATE cliente SET nombre = ? WHERE id = ?";
             Connection conn = datasource.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, c.getNombre());
+            ps.setString(1, c.getName());
             ps.setString(2, String.valueOf(c.getId()));
             ps.execute();
             conn.close();
@@ -98,7 +98,7 @@ public class ClientImpMySql implements ClientService{
             Client aux = new Client();
             while(rs.next()){
                 aux.setId(Integer.parseInt(rs.getObject("id").toString()) );
-                aux.setNombre(rs.getObject("nombre").toString());
+                aux.setName(rs.getObject("nombre").toString());
             }
             conn.close();
             return aux;
@@ -118,7 +118,7 @@ public class ClientImpMySql implements ClientService{
             while(rs.next()){
                 Client aux = new Client();
                 aux.setId(Integer.parseInt(rs.getObject("id").toString()) );
-                aux.setNombre(rs.getObject("nombre").toString());
+                aux.setName(rs.getObject("nombre").toString());
                 list.add(aux);
             }
             conn.close();

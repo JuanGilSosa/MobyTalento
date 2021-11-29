@@ -3,7 +3,7 @@ package com.Moby.app.Model;
 public class Client {
 
     private Integer id;    
-    private String nombre;
+    private String name;
     
     public Integer getId() {
         return id;
@@ -13,16 +13,16 @@ public class Client {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return "Cliente [id=" + id + ", nombre=" + nombre + "]";
+        return "Cliente [id=" + id + ", name=" + name + "]";
     }
 }

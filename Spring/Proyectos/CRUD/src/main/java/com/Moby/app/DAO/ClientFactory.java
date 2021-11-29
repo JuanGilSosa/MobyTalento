@@ -13,11 +13,6 @@ public class ClientFactory {
     @Autowired
     ClientImpMySql clienteDAO;
 
-    /*
-    public void setClienteDAO(ClienteMySqlDAO clienteDAO){
-        this.clienteDAO = clienteDAO;
-    }
-    */
     public int Insert(Client c){
         return this.clienteDAO.Insert(c);
     }
