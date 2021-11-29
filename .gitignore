@@ -1,6 +1,9 @@
 *.class
 Acceso INFORMACION.txt
 */target/
+
 # Proyecto IoC Spring
 /Spring/IoC/Sample/.idea
 **/*.iml
+# /CRUD
+*.vscode
