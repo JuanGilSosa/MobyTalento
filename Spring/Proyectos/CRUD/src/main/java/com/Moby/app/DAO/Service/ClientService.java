@@ -1,6 +1,7 @@
 package com.Moby.app.DAO.Service;
 
 import com.Moby.app.Model.Client;
+
 import java.util.List;
 
 public interface ClientService {

@@ -1,4 +1,4 @@
-package com.Moby.app.Controller;
+package com.Moby.app.Utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

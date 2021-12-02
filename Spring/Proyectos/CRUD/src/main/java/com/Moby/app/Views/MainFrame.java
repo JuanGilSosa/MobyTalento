@@ -1,11 +1,14 @@
 package com.Moby.app.Views;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 import javax.swing.table.DefaultTableModel;
 
-import com.Moby.app.Controller.ContextProvider;
-import com.Moby.app.DAO.ClientFactory;
+import com.Moby.app.Controller.ClientFactory;
 import com.Moby.app.Model.Client;
+import com.Moby.app.Utils.ContextProvider;
 
 @Service()
 public class MainFrame extends javax.swing.JFrame {

@@ -1,6 +1,6 @@
 package com.Moby.app;
 
-import com.Moby.app.Controller.ContextProvider;
+import com.Moby.app.Utils.ContextProvider;
 import com.Moby.app.Views.MainFrame;
 
 public class App 
